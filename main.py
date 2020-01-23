@@ -62,6 +62,8 @@ Autonomous System:	{bgp_as}
 
 Prefixes advertised by {bgp_as}:
 {subnets}
+
+Get more information at https://bgp.he.net/{bgp_as}.
 		"""
 
 		if args.output:
