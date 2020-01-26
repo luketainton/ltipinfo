@@ -1,4 +1,8 @@
 # IP Information Lookup Tool
+
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/luketainton/ipinfo.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/luketainton/ipinfo/alerts)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/luketainton/ipinfo.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/luketainton/ipinfo/context:python)
+
 This Python script takes an IP address and gathers information on the following:
 - Location
 - Timezone
