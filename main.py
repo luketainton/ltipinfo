@@ -52,16 +52,16 @@ def main():
         timezone = my_info['timezone']
         isp = my_info['isp']
         bgp_as = my_info['as'].split(" ")[0]
-        subnets = get_as_subnets(bgp_as)
+        subnets_ipv4 = get_as_subnets(bgp_as)
         output = f"""
-IP Address:        {my_ip}
-Location:        {location}
-Timezone:        {timezone}
-ISP:            {isp}
+IP Address:           {my_ip}
+Location:             {location}
+Timezone:             {timezone}
+ISP:                  {isp}
 Autonomous System:    {bgp_as}
 
-Prefixes advertised by {bgp_as}:
-{subnets}
+IPv4 prefixes advertised by {bgp_as}:
+{subnets_ipv4}
 
 Get more information at https://bgp.he.net/{bgp_as}.
         """
