@@ -15,10 +15,10 @@ def parse_args():
 
 
 def get_external_ip(args):
-    if args.ip == 'me':
+    if args == 'me':
         ip = get('https://api.ipify.org').text
     else:
-        ip = args.ip
+        ip = args
     return ip
 
 
@@ -44,9 +44,8 @@ def main():
     """)
 
     args = parse_args()
-    my_ip = get_external_ip(args)
-    my_info_raw = get_ip_information(my_ip)
-    my_info = json.loads(my_info_raw)
+    my_ip = get_external_ip(args.ip)
+    my_info = json.loads(get_ip_information(my_ip))
     if my_info['status'] == "success":
         location = f"{my_info['country']}/{my_info['regionName']}/{my_info['city']}"
         timezone = my_info['timezone']
