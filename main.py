@@ -33,7 +33,7 @@ def get_as_subnets(bgp_as):
 
 
 def main():
-    print("""
+    header = f"""
 ------------------------------
 |   IP Address Information   |
 |         Lookup Tool        |
@@ -41,7 +41,7 @@ def main():
 |     By Luke D. Tainton     |
 |        @luketainton        |
 ------------------------------
-    """)
+    """
 
     args = parse_args()
     my_ip = get_external_ip(args.ip)
@@ -69,10 +69,12 @@ Get more information at https://bgp.he.net/{bgp_as}.
             current_time = datetime.now().strftime('%Y%m%d-%H%M%S')
             filename = f"output-{current_time}.txt"
             with open(str(filename), 'w') as file:
+                file.write(header)
                 file.write(output)
                 file.close()
             print(f"Output has been written to {filename}.")
         else:
+            print(header)
             print(output)
     else:
         print("The query failed. Please try again.")
