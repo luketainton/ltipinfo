@@ -10,6 +10,7 @@ from datetime import datetime
 def parse_args():
     parser = argparse.ArgumentParser(description="This script gets IP address information.")
     parser.add_argument("ip", help="IP Address. Specify 'me' or an IP address.")
+    parser.add_argument("-p", "--prefixes", dest='prefixes', action='store_true', help="Get IPv4 prefixes advertised by identified AS.")
     parser.add_argument("-o", "--output", dest='output', action='store_true', help="Write output of script to a file.")
     return parser.parse_args()
 
@@ -58,6 +59,9 @@ Location:             {location}
 Timezone:             {timezone}
 ISP:                  {isp}
 Autonomous System:    {bgp_as}
+"""
+        if args.prefixes:
+            output += f"""
 
 IPv4 prefixes advertised by {bgp_as}:
 {subnets_ipv4}
