@@ -44,6 +44,7 @@ def main():
 ------------------------------
     """
 
+    print(header)
     args = parse_args()
     my_ip = get_external_ip(args.ip)
     my_info = json.loads(get_ip_information(my_ip))
@@ -78,7 +79,6 @@ Get more information at https://bgp.he.net/{bgp_as}.
                 file.close()
             print(f"Output has been written to {filename}.")
         else:
-            print(header)
             print(output)
     else:
         print("The query failed. Please try again.")
