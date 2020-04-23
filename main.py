@@ -8,14 +8,33 @@ from datetime import datetime
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="This script gets IP address information.")
-    parser.add_argument("ip", help="IP Address. Specify 'me' or an IP address.")
-    parser.add_argument("-p", "--prefixes", dest='prefixes', action='store_true', help="Get IPv4 prefixes advertised by AS.")
-    parser.add_argument("-o", "--output", dest='output', action='store_true', help="Write output of script to a file.")
+    """Parse arguments from command line."""
+    parser = argparse.ArgumentParser(
+        description="This script gets IP address information."
+    )
+    parser.add_argument(
+        "ip",
+        help="IP Address. Specify 'me' or an IP address."
+    )
+    parser.add_argument(
+        "-p",
+        "--prefixes",
+        dest='prefixes',
+        action='store_true',
+        help="Get IPv4 prefixes advertised by AS."
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        dest='output',
+        action='store_true',
+        help="Write output of script to a file."
+    )
     return parser.parse_args()
 
 
 def get_external_ip(args):
+    """If an IP address is not specified on the CLI, get the user's public IP."""
     if args == 'me':
         ip = get('https://api.ipify.org').text
     else:
@@ -24,17 +43,20 @@ def get_external_ip(args):
 
 
 def get_ip_information(ip):
+    """Get information about IP address."""
     info = get(f'http://ip-api.com/json/{ip}')
     return info.text
 
 
 def get_as_subnets(bgp_as):
+    """Get the subnets advertised by the IP's Autonomous System"""
     r = get(f"https://api.hackertarget.com/aslookup/?q={bgp_as}").text
     return r.split('"')[4].split("\n", 1)[1]
 
 
 def main():
-    header = f"""
+    """Run script."""
+    header = """
 ------------------------------
 |   IP Address Information   |
 |         Lookup Tool        |

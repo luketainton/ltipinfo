@@ -3,16 +3,14 @@ import main
 import json
 
 
-bgp_as = ""
-
-
 def test_get_external_ip(ip):
+    """Make sure an object is returned when the function is called."""
     test = main.get_external_ip(ip)
     assert test is not None
 
 
 def test_get_ip_information(ip):
-    global bgp_as
+    """Ensure that the API returns correct information."""
     ip_info = json.loads(main.get_ip_information(ip))
     assert ip_info['country'] == "Australia"
     assert ip_info['city'] == "Sydney"
@@ -22,6 +20,7 @@ def test_get_ip_information(ip):
 
 
 def test_get_as_subnets():
-    global bgp_as
-    resp = main.get_as_subnets(bgp_as)
+    """Ensure the API is querying the correct AS."""
+    # AS13335 taken from above test
+    resp = main.get_as_subnets("AS13335")
     assert "162.158.112.0/24" in resp

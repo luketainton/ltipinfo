@@ -5,3 +5,4 @@
 main.spec
 .venv
 /build/*
+/.vscode/*
