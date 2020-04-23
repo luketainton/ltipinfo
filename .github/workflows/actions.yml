@@ -19,9 +19,7 @@ jobs:
     - name: Setup PIP
       run: |
         pip install --upgrade pip
-        pip install flake8
-        pip install requests
-        pip install pytest
+        pip install flake8 requests pytest pytest-cov
 
     - name: Lint with flake8
       run: |
