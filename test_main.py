@@ -3,10 +3,16 @@ import main
 import json
 
 
-def test_get_external_ip(ip):
+def test_get_my_ip():
     """Make sure an object is returned when the function is called."""
-    test = main.get_external_ip(ip)
+    test = main.get_my_ip()
     assert test is not None
+
+
+def test_resolve_fqdn(fqdn):
+    """Test resolving an FQDN."""
+    ip = main.resolve_fqdn(fqdn)
+    assert ip == "1.1.1.1"
 
 
 def test_get_ip_information(ip):

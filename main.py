@@ -5,6 +5,8 @@ from requests import get
 import json
 import argparse
 from datetime import datetime
+import ipaddress
+import socket
 
 
 def parse_args():
@@ -13,8 +15,8 @@ def parse_args():
         description="This script gets IP address information."
     )
     parser.add_argument(
-        "ip",
-        help="IP Address. Specify 'me' or an IP address."
+        "QUERY",
+        help="Query item. Specify 'me', an IP address, or a domain name."
     )
     parser.add_argument(
         "-p",
@@ -33,12 +35,16 @@ def parse_args():
     return parser.parse_args()
 
 
-def get_external_ip(args):
+
+def get_my_ip():
     """If an IP address is not specified on the CLI, get the user's public IP."""
-    if args == 'me':
-        ip = get('https://api.ipify.org').text
-    else:
-        ip = args
+    ip = get('https://api.ipify.org').text
+    return ip
+
+
+def resolve_fqdn(fqdn):
+    """Resolve the IP address of the specified FQDN."""
+    ip = socket.gethostbyname(fqdn)
     return ip
 
 
@@ -68,7 +74,18 @@ def main():
 
     print(header)
     args = parse_args()
-    my_ip = get_external_ip(args.ip)
+    try:
+        ipaddress.ip_address(args.QUERY)
+        my_ip = args.QUERY
+        fqdn_used = 0
+    except ValueError:
+        """Not a valid IPv4 Address"""
+        if args.QUERY == 'me':
+            my_ip = get_my_ip()
+            fqdn_used = 0
+        else:
+            fqdn_used = 1
+            my_ip = socket.gethostbyname(args.QUERY)
     my_info = json.loads(get_ip_information(my_ip))
     if my_info['status'] == "success":
         location = f"{my_info['country']}/{my_info['regionName']}/{my_info['city']}"
@@ -76,8 +93,10 @@ def main():
         isp = my_info['isp']
         bgp_as = my_info['as'].split(" ")[0]
         subnets_ipv4 = get_as_subnets(bgp_as)
-        output = f"""
-IP Address:           {my_ip}
+        output = f"IP Address:           {my_ip}"
+        if fqdn_used:
+            output += f"\nDomain Name:          {args.QUERY}"
+        output += f"""
 Location:             {location}
 Timezone:             {timezone}
 ISP:                  {isp}
