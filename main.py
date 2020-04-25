@@ -35,7 +35,6 @@ def parse_args():
     return parser.parse_args()
 
 
-
 def get_my_ip():
     """If an IP address is not specified on the CLI, get the user's public IP."""
     ip = get('https://api.ipify.org').text
