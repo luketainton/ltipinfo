@@ -12,7 +12,7 @@ def test_get_my_ip():
 def test_resolve_fqdn(fqdn):
     """Test resolving an FQDN."""
     ip = main.resolve_fqdn(fqdn)
-    assert ip == "1.1.1.1"
+    assert ip == "1.1.1.1" or "1.0.0.1"
 
 
 def test_get_ip_information(ip):
