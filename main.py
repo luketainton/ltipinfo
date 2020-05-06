@@ -4,7 +4,6 @@
 from requests import get
 import json
 import argparse
-from datetime import datetime
 from ipaddress import ip_address
 import socket
 from colorama import Fore
@@ -33,6 +32,7 @@ def parse_args():
 
 
 def get_true_ip(query):
+    """Return IP address from query."""
     try:
         ip_address(query)
         my_ip = query
@@ -67,10 +67,9 @@ def resolve_ptr(ip):
 
 
 def is_address_private(ip):
+    """Return True if given address is in an RFC1918 range."""
     if ip_address(ip).is_private:
         return True
-    else:
-        return False
 
 
 def get_ip_information(ip):
@@ -105,14 +104,14 @@ def main():
     fqdn_used = ip_data[1]
 
     if is_address_private(my_ip):
-        print(Fore.RED + f"ERROR: The IP address {my_ip} is private and cannot be used on the public Internet.")
+        print(Fore.RED + f"ERROR: The IP address {my_ip} is private and cannot be queried.")
         exit()
-    
+
     if not fqdn_used:
         my_ptr = resolve_ptr(my_ip)
     else: 
         my_ptr = args.QUERY
-    
+
     my_info = json.loads(get_ip_information(my_ip))
 
     if my_info['status'] == "success":

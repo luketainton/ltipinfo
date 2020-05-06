@@ -3,10 +3,16 @@ import main
 import json
 
 
-def test_get_true_ip(query):
+def test_get_true_ip_fqdn(query):
     """Ensure that the function returns an IP address."""
     test = main.get_true_ip(query)
     assert test == ["1.1.1.1", 1] or ["1.0.0.1", 1]
+
+
+def test_get_true_ip_ip(ip):
+    """Ensure that the function returns an IP address."""
+    test = main.get_true_ip(ip)
+    assert test == ["1.1.1.1", 0]
 
 
 def test_get_my_ip():
