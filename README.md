@@ -16,5 +16,4 @@ Here are some ways that you can run the script:
 | `./main.py google.com` | Run against the domain name `google.com` |
 
 ## Credits
-This script runs thanks to the APIs provided by [IP-API](http://ip-api.com) and [HackerTarget](https://hackertarget.com/as-ip-lookup). Thanks also to [Hurricane Electric](https://bgp.he.net) for providing
-extra information on AS numbers.
+This script runs thanks to the APIs provided by [IP-API](http://ip-api.com) and [HackerTarget](https://hackertarget.com/as-ip-lookup).

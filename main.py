@@ -6,16 +6,17 @@ import json
 import argparse
 from ipaddress import ip_address
 import socket
-from colorama import Fore
 
 
-app_version = "1.5.0"
+app_version = "1.5.1"
 
 
 def parse_args():
     """Parse arguments from command line."""
     parser = argparse.ArgumentParser(
-        description="This script gets IP address information."
+        description="""This script gets information about a specified IP address or domain name.
+        If an IP address is specified, a reverse lookup will attempt to find an associated
+        domain name."""
     )
     parser.add_argument(
         "QUERY",
@@ -104,11 +105,14 @@ def main():
     fqdn_used = ip_data[1]
 
     if is_address_private(my_ip):
-        print(Fore.RED + f"ERROR: The IP address {my_ip} is private and cannot be queried.")
+        print(f"ERROR: The IP address {my_ip} is private and cannot be queried.")
         exit()
 
     if not fqdn_used:
-        my_ptr = resolve_ptr(my_ip)
+        try:
+            my_ptr = resolve_ptr(my_ip)
+        except socket.herror:
+            my_ptr = "<NONE>"
     else: 
         my_ptr = args.QUERY
 
@@ -128,13 +132,12 @@ def main():
         output += f"ISP:                  {isp}\n"
         output += f"Autonomous System:    {bgp_as}\n"
 
-        if args.prefixes:
-            subnets_ipv4 = get_as_subnets(bgp_as)
-            output += f"\nIPv4 prefixes advertised by {bgp_as}:\n"
-            output += f"{subnets_ipv4}\n\n"
-            output += f"Get more information at https://bgp.he.net/{bgp_as}."
-
         print(output)
+
+        if args.prefixes:
+            print(f"\nIPv4 prefixes advertised by {bgp_as}:")
+            subnets_ipv4 = get_as_subnets(bgp_as)
+            print(subnets_ipv4)
 
     else:
         print("The query failed. Please try again.")
