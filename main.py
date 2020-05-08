@@ -6,8 +6,6 @@ import json
 import argparse
 from ipaddress import ip_address
 import socket
-from colorama import Fore
-import sys
 
 
 app_version = "1.5.1"
@@ -17,7 +15,8 @@ def parse_args():
     """Parse arguments from command line."""
     parser = argparse.ArgumentParser(
         description="""This script gets information about a specified IP address or domain name.
-        If an IP address is specified, a reverse lookup will attempt to find an associated domain name."""
+        If an IP address is specified, a reverse lookup will attempt to find an associated
+        domain name."""
     )
     parser.add_argument(
         "QUERY",
@@ -106,7 +105,7 @@ def main():
     fqdn_used = ip_data[1]
 
     if is_address_private(my_ip):
-        print(Fore.RED + f"ERROR: The IP address {my_ip} is private and cannot be queried.")
+        print(f"ERROR: The IP address {my_ip} is private and cannot be queried.")
         exit()
 
     if not fqdn_used:
