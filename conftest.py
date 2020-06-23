@@ -23,3 +23,9 @@ def privip():
 def fqdn():
     fqdn_value = "one.one.one.one"
     return fqdn_value
+
+
+@pytest.fixture(scope='session')
+def subnets():
+    subnets_value = "3.3.3.3/32\n2.2.2.2/32\n1.1.1.1/32\n"
+    return subnets_value

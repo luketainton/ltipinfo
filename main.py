@@ -4,11 +4,11 @@
 from requests import get
 import json
 import argparse
-from ipaddress import ip_address
+from ipaddress import ip_address, ip_network
 import socket
 
 
-app_version = "1.5.1"
+app_version = "1.6.0"
 
 
 def parse_args():
@@ -86,6 +86,16 @@ def get_as_subnets(bgp_as):
     return subnets
 
 
+def sort_as_subnets(subnets):
+    """Sort the list of advertised prefixes in ascending order."""
+    returned_list = []
+    subnets = subnets.split()
+    ips = sorted(ip_network(subnet) for subnet in subnets)
+    for ip in ips:
+        returned_list.append(str(ip))
+    return returned_list
+
+
 def main():
     """Run script."""
 
@@ -137,7 +147,9 @@ def main():
         if args.prefixes:
             print(f"\nIPv4 prefixes advertised by {bgp_as}:")
             subnets_ipv4 = get_as_subnets(bgp_as)
-            print(subnets_ipv4)
+            sorted_subnets = sort_as_subnets(subnets_ipv4)
+            for s in sorted_subnets:
+                print(s)
 
     else:
         print("The query failed. Please try again.")
