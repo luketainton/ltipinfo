@@ -1,0 +1,29 @@
+name: 'Lock threads'
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dessant/lock-threads@v2
+        with:
+          github-token: ${{ github.token }}
+          issue-lock-inactive-days: '30'
+          issue-exclude-labels: 'wip, help-wanted, blocking'
+          issue-lock-labels: 'auto-locked'
+          issue-lock-comment: >
+            This issue has been automatically locked since there
+            has not been any recent activity after it was closed.
+            Please open a new issue for related bugs.
+          issue-lock-reason: 'resolved'
+          pr-lock-inactive-days: '30'
+          pr-exclude-labels: 'wip, help-wanted, blocking'
+          pr-lock-labels: 'auto-locked'
+          pr-lock-comment: >
+            This pull request has been automatically locked since there
+            has not been any recent activity after it was closed.
+            Please open a new issue for related bugs.
+          pr-lock-reason: 'resolved'
