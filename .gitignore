@@ -4,5 +4,8 @@
 /__pycache__/*
 main.spec
 .venv
+/venv/*
 /build/*
+/dist/*
+/ltipinfo.egg-info/*
 /.vscode/*

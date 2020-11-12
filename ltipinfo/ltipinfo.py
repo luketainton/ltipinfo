@@ -8,9 +8,6 @@ from ipaddress import ip_address, ip_network
 import socket
 
 
-app_version = "1.6.0"
-
-
 def parse_args():
     """Parse arguments from command line."""
     parser = argparse.ArgumentParser(
@@ -102,7 +99,6 @@ def main():
     header = "------------------------------\n"
     header += "|   IP Address Information   |\n"
     header += "|         Lookup Tool        |\n"
-    header += f"|        Version {app_version}       |\n"
     header += "|                            |\n"
     header += "|     By Luke D. Tainton     |\n"
     header += "|        @luketainton        |\n"
