@@ -1,0 +1,10 @@
+certifi==2020.4.5.1
+chardet==3.0.4
+colorama==0.4.3
+DateTime==4.3
+idna==2.9
+ipaddress==1.0.23
+pytz==2020.1
+requests==2.23.0
+urllib3==1.25.9
+zope.interface==5.1.0
