@@ -1,6 +1,6 @@
 certifi==2020.4.5.1
 chardet==3.0.4
-colorama==0.4.3
+colorama==0.4.4
 DateTime==4.3
 idna==2.9
 ipaddress==1.0.23
