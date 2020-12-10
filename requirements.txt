@@ -5,6 +5,6 @@ DateTime==4.3
 idna==2.10
 ipaddress==1.0.23
 pytz==2020.4
-requests==2.23.0
+requests==2.25.0
 urllib3==1.25.9
 zope.interface==5.1.0
