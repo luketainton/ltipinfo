@@ -4,7 +4,7 @@ colorama==0.4.4
 DateTime==4.3
 idna==3.0
 ipaddress==1.0.23
-pytz==2020.4
+pytz==2020.5
 requests==2.25.1
 urllib3==1.26.2
 zope.interface==5.2.0
